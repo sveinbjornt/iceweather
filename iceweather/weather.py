@@ -12,7 +12,7 @@ import json
 import requests
 from requests import RequestException
 
-from stations import STATIONS
+from .stations import STATIONS
 
 
 _DEFAULT_LANG = "is"
@@ -60,7 +60,6 @@ def _distance(loc1, loc2):
 def _api_call(url):
     """ Use requests to call the apis.is weather API """
     result = requests.get(url)
-
     if result.status_code != 200:
         raise RequestException("API status code not 200 OK for URL: {0}".format(url))
 
@@ -108,11 +107,11 @@ def observation_for_station(station_id, lang=_DEFAULT_LANG):
         'R'   : { 'is': 'Uppsöfnuð úrkoma (mm/klst) úr sjálfvirkum mælum',
                   'en': 'Cumulative precipitation (mm/h) from automatic measuring units'}
     """
-    return _api_call(_FORECASTS_URL.format(lang, station_id))
+    return _api_call(_OBSERVATIONS_URL.format(lang, station_id))
 
 
 def observation_for_closest(lat, lon, lang=_DEFAULT_LANG):
-    """ Returns weather observation from closest station given coordinates """
+    """ Returns weather observation from closest weather station given coordinates """
     station = closest_station(lat, lon)
     return observation_for_station(station["id"], lang=lang)
 
@@ -126,7 +125,7 @@ def forecast_for_station(station_id, lang=_DEFAULT_LANG):
 
 
 def forecast_for_closest(lat, lon, lang=_DEFAULT_LANG):
-    """ Returns weather forecast from closest station given coordinates """
+    """ Returns weather forecast from closest weather station given coordinates """
     station = closest_station(lat, lon)
     return forecast_for_station(station["id"], lang=lang)
 

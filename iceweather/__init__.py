@@ -7,4 +7,4 @@
 
 """
 
-from weather import *
+from .weather import *

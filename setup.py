@@ -12,7 +12,7 @@ setuptools.setup(
     author_email="sveinbjorn@sveinbjorn.org",
     license='BSD',
     url="https://github.com/sveinbjornt/iceweather",
-    description="Look up Icelandic weaather information (observations, forecasts, etc.)",
+    description="Look up Icelandic weather information (observations, forecasts, etc.)",
     long_description=long_description,
     long_description_content_type="text/markdown",
     install_requires=["requests"],
@@ -31,6 +31,5 @@ setuptools.setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Utilities",
     ],
-    include_package_data=True,
-    zip_safe=False
+    zip_safe=True
 )

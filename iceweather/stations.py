@@ -20,7 +20,7 @@ STATIONS = [
     {"id": 1453, "lat": 64.0817, "lon": -22.6893, "name": "Garðskagaviti"},
     {"id": 1473, "lat": 64.0438, "lon": -22.0404, "name": "Straumsvík"},
     {"id": 1474, "lat": 64.0712, "lon": -21.9107, "name": "Garðabær - Urriðaholt"},
-    {"id": 1477, "lat": 64.1284, "lon": -21.9407, "name": "Reykjavíkurflugvöllur"},
+    # {"id": 1477, "lat": 64.1284, "lon": -21.9407, "name": "Reykjavíkurflugvöllur"},
     {"id": 1479, "lat": 64.1505, "lon": -21.7511, "name": "Korpa"},
     {"id": 1480, "lat": 64.1678, "lon": -21.8038, "name": "Geldinganes"},
     {"id": 1481, "lat": 64.1085, "lon": -21.6864, "name": "Hólmsheiði"},

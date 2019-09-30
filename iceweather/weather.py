@@ -112,8 +112,13 @@ def observation_for_station(station_id, lang=_DEFAULT_LANG):
 
 def observation_for_closest(lat, lon, lang=_DEFAULT_LANG):
     """ Returns weather observation from closest weather station given coordinates """
-    station = closest_station(lat, lon)
-    return observation_for_station(station["id"], lang=lang)
+    stations = closest_stations(lat, lon)
+    for s in stations:
+        r = observation_for_station(s["id"], lang=lang)
+        if "results" in r and r["results"] and not r["results"][0].get("err"):
+            return r
+        # else:
+        #     print("Observational data not available for station {0}".format(s["name"]))
 
 
 _FORECASTS_URL = "https://apis.is/weather/forecasts/{0}?stations={1}"
@@ -126,8 +131,13 @@ def forecast_for_station(station_id, lang=_DEFAULT_LANG):
 
 def forecast_for_closest(lat, lon, lang=_DEFAULT_LANG):
     """ Returns weather forecast from closest weather station given coordinates """
-    station = closest_station(lat, lon)
-    return forecast_for_station(station["id"], lang=lang)
+    stations = closest_stations(lat, lon)
+    for s in stations:
+        r = forecast_for_station(s["id"], lang=lang)
+        if "results" in r and r["results"] and not r["results"][0].get("err"):
+            return r
+        # else:
+        #     print("Forecast data not available for station {0}".format(s["name"]))
 
 
 _TEXT_URL = "http://apis.is/weather/texts?types={0}"
@@ -174,13 +184,14 @@ def station_list():
     return STATIONS
 
 
-def closest_station(lat, lon):
-    """ Find the weather station closest to the given location. """
+def closest_stations(lat, lon, num=None):
+    """ Find weather stations closest to the given location. """
     dist_sorted = sorted(
         STATIONS, key=lambda s: _distance((lat, lon), (s["lat"], s["lon"]))
     )
-
-    return dist_sorted[0]
+    if num is not None:
+        return dist_sorted[:num]
+    return dist_sorted
 
 
 def id_for_station(station_name):
@@ -195,3 +206,12 @@ def station_for_id(station_id):
     for s in STATIONS:
         if s["id"] == station_id:
             return s
+
+
+# def test_stations():
+#     """ Test which stations fail to provide observational data """
+#     for s in STATIONS:
+#         o = observation_for_station(s["id"])
+#         r = o["results"][0]
+#         if r.get("err"):
+#             print(r["id"])

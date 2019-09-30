@@ -12,6 +12,9 @@ $ pip install iceweather
 
 ## Version History
 
+0.1.1 - Fall back on other close weather stations for if err in result from closest station 
+0.1 - Initial release (10/09/2019)
+
 ## BSD License 
 
 Copyright (C) 2019 Sveinbjorn Thordarson
